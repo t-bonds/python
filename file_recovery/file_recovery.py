@@ -1,3 +1,10 @@
+#!/usr/bin/python3
+
+# Authors: Tanner Bonds, Drew Yarbrough
+# Professor: Dr. Jason Cuneo
+# Assignment: Project 2
+# Class: COMP 6350 - Digital Forensics, Auburn University
+# Date: November 2021
 from argparse import ArgumentParser
 import re
 import binascii
