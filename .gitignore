@@ -1,2 +1,5 @@
 .DS_Store
 file_recovery/Project2.dd
+file_recovery/.vscode/launch.json
+file_recovery/recovered_files/*
+
