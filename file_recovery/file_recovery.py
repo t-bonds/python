@@ -30,7 +30,7 @@ def get_hex(filename):
 def get_files(raw):
     headers = []
     footers = []
-    file_count = 0
+    file_count = 1
     header_skip = False
     footer_skip = False
     pdf_skip = False
@@ -110,32 +110,32 @@ def get_files(raw):
             if not (header_skip or footer_skip or pdf_skip):
                 headers.append(offset)
                 footers.append(end)
-            new_file = raw[offset:end]
-            if not os.path.exists('./recovered_files'):
-                os.mkdir('./recovered_files')
-            if sys.platform.__contains__('win32') or sys.platform.__contains__('cygwin'):
-                file_name = '\\recovered_files\\file' + \
-                    str(file_count) + signature[0]
-                with open(file_name, 'wb') as w:
-                    w.write(new_file)
-            else:
-                file_name = 'recovered_files/file' + \
-                    str(file_count) + signature[0]
-                with open(file_name, 'wb') as w:
-                    w.write(new_file)
-            with open(file_name, 'rb') as hash_file:
-                data = hash_file.read(65536)
-                hasher = hashlib.sha256(data)
-                while data:
+                new_file = raw[offset:end]
+                if not os.path.exists('./recovered_files'):
+                    os.mkdir('./recovered_files')
+                if sys.platform.__contains__('win32') or sys.platform.__contains__('cygwin'):
+                    file_name = r'recovered_files\file' + \
+                        str(file_count) + signature[0]
+                    with open(file_name, 'wb') as w:
+                        w.write(new_file)
+                else:
+                    file_name = 'recovered_files/file' + \
+                        str(file_count) + signature[0]
+                    with open(file_name, 'wb') as w:
+                        w.write(new_file)
+                with open(file_name, 'rb') as hash_file:
                     data = hash_file.read(65536)
-                    hasher.update(data)
-            file_hash = hasher.hexdigest()
-            file_count += 1
+                    hasher = hashlib.sha256(data)
+                    while data:
+                        data = hash_file.read(65536)
+                        hasher.update(data)
+                file_hash = hasher.hexdigest()
+                file_count += 1
 
-            print('\nFile Name: ' + file_name)
-            print('Starting Offset: ' + hex(offset))
-            print('Ending Offset: ' + hex(end))
-            print('SHA256 Hash: ' + file_hash)
+                print('\nFile Name: ' + file_name)
+                print('Starting Offset: ' + hex(offset))
+                print('Ending Offset: ' + hex(end))
+                print('SHA256 Hash: ' + file_hash)
 
 
 def main():
