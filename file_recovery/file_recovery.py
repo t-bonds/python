@@ -132,9 +132,8 @@ def get_files(raw):
                 file_hash = hasher.hexdigest()
                 file_count += 1
 
-                print('\nFile Name: ' + file_name)
-                print('Starting Offset: ' + hex(offset))
-                print('Ending Offset: ' + hex(end))
+                print('\nFile Name: ' + file_name + ', Starting Offset: ' +
+                      hex(offset) + ', Ending Offset: ' + hex(end))
                 print('SHA256 Hash: ' + file_hash)
 
 
